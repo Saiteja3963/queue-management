@@ -21,8 +21,8 @@ Scalable queue management for different businesses and systems. Each organizatio
 
 ```bash
 cd backend
-pip install -r requirements.txt
-python -m uvicorn app.main:app --reload --port 8000
+pip3 install -r requirements.txt
+python3 -m uvicorn app.main:app --reload --port 8000
 ```
 
 API docs: http://127.0.0.1:8000/docs
