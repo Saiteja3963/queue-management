@@ -37,7 +37,7 @@ void main() {
     expect(ticket.position, 3);
   });
 
-  testWidgets('Home screen shows QueueFlow brand', (tester) async {
+  testWidgets("Home screen shows Q'Me brand", (tester) async {
     final api = ApiService(baseUrl: 'http://127.0.0.1:8000');
     final auth = AuthProvider(api);
     auth.loading = false;
@@ -55,7 +55,7 @@ void main() {
       ),
     );
 
-    expect(find.text('QueueFlow'), findsOneWidget);
+    expect(find.text("Q'Me"), findsOneWidget);
     expect(find.text('Sign in'), findsOneWidget);
     expect(find.text('Try public queue'), findsOneWidget);
   });

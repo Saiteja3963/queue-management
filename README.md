@@ -60,16 +60,23 @@ Organization (business)
 
 Public customers join via `/q/{org-slug}/{queue-slug}` without needing staff login.
 
-## Mobile app (Flutter)
+## Mobile app — Q'Me (Flutter)
 
-Cross-platform Android + iOS client lives in [`mobile/`](mobile/):
+Android + iOS client in [`mobile/`](mobile/). Display name **Q'Me**, package `com.qme.app`.
 
 ```bash
 cd mobile
 flutter pub get
 flutter run -d android   # or: flutter run -d ios
-# Physical device:
-flutter run --dart-define=API_BASE_URL=http://YOUR_LAN_IP:8000
+# Physical device / Play release API:
+flutter run --dart-define=API_BASE_URL=https://YOUR_PUBLIC_API
 ```
 
-See [mobile/README.md](mobile/README.md) for details.
+Google Play publishing steps: [mobile/PLAY_STORE.md](mobile/PLAY_STORE.md)
+
+Public API hosting (Docker):
+
+```bash
+docker build -t qme-api -f backend/Dockerfile backend
+docker run -d -p 8000:8000 qme-api
+```

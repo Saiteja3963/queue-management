@@ -8,17 +8,17 @@ import 'theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const QueueFlowApp());
+  runApp(const QMeApp());
 }
 
-class QueueFlowApp extends StatefulWidget {
-  const QueueFlowApp({super.key});
+class QMeApp extends StatefulWidget {
+  const QMeApp({super.key});
 
   @override
-  State<QueueFlowApp> createState() => _QueueFlowAppState();
+  State<QMeApp> createState() => _QMeAppState();
 }
 
-class _QueueFlowAppState extends State<QueueFlowApp> {
+class _QMeAppState extends State<QMeApp> {
   late final ApiService _api;
   late final AuthProvider _auth;
 
@@ -38,14 +38,23 @@ class _QueueFlowAppState extends State<QueueFlowApp> {
         ChangeNotifierProvider<AuthProvider>.value(value: _auth),
       ],
       child: MaterialApp(
-        title: 'QueueFlow',
+        title: "Q'Me",
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light(),
         home: Consumer<AuthProvider>(
           builder: (context, auth, _) {
             if (auth.loading) {
-              return const Scaffold(
-                body: Center(child: CircularProgressIndicator()),
+              return Scaffold(
+                body: Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Color(0xFFF8FAFC), Color(0xFFE2E8F0)],
+                    ),
+                  ),
+                  child: const Center(child: CircularProgressIndicator()),
+                ),
               );
             }
             return const HomeScreen();
@@ -55,3 +64,6 @@ class _QueueFlowAppState extends State<QueueFlowApp> {
     );
   }
 }
+
+/// Back-compat alias for existing tests/imports.
+typedef QueueFlowApp = QMeApp;

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
 import '../theme.dart';
+import '../widgets/common.dart';
 import 'dashboard_screen.dart';
 import 'login_screen.dart';
 import 'public_queue_screen.dart';
@@ -16,83 +17,99 @@ class HomeScreen extends StatelessWidget {
     final auth = context.watch<AuthProvider>();
 
     return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(20, 28, 20, 28),
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: const Color(0xFFD9F2EF),
-                borderRadius: BorderRadius.circular(999),
+      backgroundColor: Colors.transparent,
+      body: AppBackground(
+        child: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(20, 28, 20, 28),
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: AppTheme.accentSoft,
+                    borderRadius: BorderRadius.circular(999),
+                    border: Border.all(color: const Color(0xFF99F6E4)),
+                  ),
+                  child: const Text(
+                    'Multi-business queue platform',
+                    style: TextStyle(
+                      color: AppTheme.accentDark,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
               ),
-              child: const Text(
-                'Multi-business queue platform',
+              const SizedBox(height: 18),
+              const Text(
+                "Q'Me",
                 style: TextStyle(
+                  fontSize: 46,
+                  fontWeight: FontWeight.w800,
                   color: AppTheme.accentDark,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
+                  height: 1.0,
+                  letterSpacing: -1.2,
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'QueueFlow',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.w800,
-                color: AppTheme.accentDark,
-                height: 1.05,
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              'Manage queues for any business from your phone. Staff run the console; customers join and track their ticket.',
-              style: TextStyle(color: AppTheme.muted, fontSize: 16, height: 1.4),
-            ),
-            const SizedBox(height: 24),
-            if (auth.user != null) ...[
-              ElevatedButton(
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const DashboardScreen()),
+              const SizedBox(height: 10),
+              const Text(
+                'Manage queues for any business from your phone. Staff run the console; customers join and track their ticket.',
+                style: TextStyle(
+                  color: AppTheme.muted,
+                  fontSize: 16,
+                  height: 1.45,
                 ),
-                child: const Text('Open dashboard'),
               ),
-            ] else ...[
-              ElevatedButton(
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const LoginScreen()),
+              const SizedBox(height: 26),
+              if (auth.user != null) ...[
+                ElevatedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const DashboardScreen()),
+                  ),
+                  child: const Text('Open dashboard'),
                 ),
-                child: const Text('Sign in'),
-              ),
+              ] else ...[
+                ElevatedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const LoginScreen()),
+                  ),
+                  child: const Text('Sign in'),
+                ),
+                const SizedBox(height: 10),
+                OutlinedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                  ),
+                  child: const Text('Create account'),
+                ),
+              ],
               const SizedBox(height: 10),
               OutlinedButton(
                 onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const RegisterScreen()),
-                ),
-                child: const Text('Create account'),
-              ),
-            ],
-            const SizedBox(height: 10),
-            OutlinedButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const PublicQueueScreen(
-                    orgSlug: 'city-care',
-                    queueSlug: 'general-practice',
+                  MaterialPageRoute(
+                    builder: (_) => const PublicQueueScreen(
+                      orgSlug: 'city-care',
+                      queueSlug: 'general-practice',
+                    ),
                   ),
                 ),
+                child: const Text('Try public queue'),
               ),
-              child: const Text('Try public queue'),
-            ),
-            const SizedBox(height: 20),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(14),
+              const SizedBox(height: 22),
+              Container(
+                decoration: BoxDecoration(
+                  color: AppTheme.surface,
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(color: AppTheme.line),
+                  boxShadow: AppTheme.softShadow,
+                ),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -108,21 +125,24 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            _FeatureCard(
-              title: 'Admin & staff',
-              body: 'Call next, serve, complete, and close queues from the console.',
-            ),
-            _FeatureCard(
-              title: 'Customer join',
-              body: 'Take a number without an account and watch live position updates.',
-            ),
-            _FeatureCard(
-              title: 'Queue insights',
-              body: 'Waiting counts, average wait, throughput, and peak hour.',
-            ),
-          ],
+              const SizedBox(height: 22),
+              const _FeatureCard(
+                title: 'Admin & staff',
+                body:
+                    'Call next, serve, complete, and close queues from the console.',
+              ),
+              const _FeatureCard(
+                title: 'Customer join',
+                body:
+                    'Take a number without an account and watch live position updates.',
+              ),
+              const _FeatureCard(
+                title: 'Queue insights',
+                body:
+                    'Waiting counts, average wait, throughput, and peak hour.',
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -139,10 +159,20 @@ class _FeatureCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Card(
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppTheme.surface,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: AppTheme.line),
+          boxShadow: AppTheme.softShadow,
+        ),
         child: ListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           title: Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
-          subtitle: Text(body),
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(body, style: const TextStyle(color: AppTheme.muted)),
+          ),
         ),
       ),
     );
