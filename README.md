@@ -59,3 +59,17 @@ Organization (business)
 ```
 
 Public customers join via `/q/{org-slug}/{queue-slug}` without needing staff login.
+
+## Mobile app (Flutter)
+
+Cross-platform Android + iOS client lives in [`mobile/`](mobile/):
+
+```bash
+cd mobile
+flutter pub get
+flutter run -d android   # or: flutter run -d ios
+# Physical device:
+flutter run --dart-define=API_BASE_URL=http://YOUR_LAN_IP:8000
+```
+
+See [mobile/README.md](mobile/README.md) for details.
