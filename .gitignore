@@ -9,3 +9,9 @@ dist/
 .DS_Store
 *.log
 .vite/
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/build/
+mobile/.idea/
+mobile/**/GeneratedPluginRegistrant.*
